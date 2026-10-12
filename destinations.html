@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinations | Explore Lesotho</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --primary-blue: #0d2c54;
+            --accent-yellow: #ffb703;
+        }
+
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+
+        .navbar {
+            background-color: var(--primary-blue);
+        }
+
+        .navbar-brand {
+            letter-spacing: 1px;
+        }
+
+        .page-hero {
+            min-height: 320px;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            background:
+                linear-gradient(rgba(5, 20, 40, 0.68), rgba(5, 20, 40, 0.68)),
+                url("nature4.jpg") center/cover no-repeat;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+        }
+
+        .btn-warning {
+            background-color: var(--accent-yellow);
+            border-color: var(--accent-yellow);
+            color: #111;
+            font-weight: 600;
+        }
+
+        .btn-warning:hover {
+            background-color: #e6a500;
+            border-color: #e6a500;
+        }
+
+        .destination-card {
+            height: 100%;
+            border: none;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.16);
+        }
+
+        .destination-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .section-heading {
+            color: var(--primary-blue);
+            font-weight: 800;
+        }
+
+        .search-panel {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 3px 14px rgba(0, 0, 0, 0.07);
+        }
+
+        .destination-card .card-title {
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+
+        .dark-mode {
+            background-color: #121212;
+            color: #f8f9fa;
+        }
+
+        .dark-mode .search-panel,
+        .dark-mode .destination-card,
+        .dark-mode .info-panel {
+            background-color: #1e1e1e;
+            color: #f8f9fa;
+        }
+
+        .dark-mode .section-heading,
+        .dark-mode .destination-card .card-title {
+            color: #ffca2c;
+        }
+
+        .dark-mode .text-muted {
+            color: #c2c2c2 !important;
+        }
+
+        footer a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="website.html">
+                <i class="bi bi-geo-alt-fill"></i> EXPLORE LESOTHO
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#mainNavigation" aria-controls="mainNavigation"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNavigation">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link" href="website.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="destinations.html">Destinations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="booking.html">Booking</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item ms-lg-2">
+                        <button id="darkModeBtn" class="btn btn-warning btn-sm mt-2 mt-lg-0"
+                            type="button" aria-label="Toggle dark mode">
+                            <i class="bi bi-moon-fill"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Page introduction -->
+        <section class="page-hero">
+            <div class="container py-5">
+                <h1>Discover Lesotho</h1>
+                <p class="lead mb-4">Explore spectacular mountains, waterfalls, dams and unforgettable adventures.</p>
+                <a href="#all-destinations" class="btn btn-warning btn-lg">Explore Destinations</a>
+            </div>
+        </section>
+
+        <!-- Search and filter -->
+        <section class="container my-5">
+            <div class="search-panel p-4">
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-8">
+                        <label for="destinationSearch" class="form-label fw-semibold">Search for a destination</label>
+                        <input type="search" id="destinationSearch" class="form-control"
+                            placeholder="Try Afriski, waterfall, mountain...">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="categoryFilter" class="form-label fw-semibold">Filter by category</label>
+                        <select id="categoryFilter" class="form-select">
+                            <option value="all">All destinations</option>
+                            <option value="mountain">Mountains</option>
+                            <option value="waterfall">Waterfalls</option>
+                            <option value="adventure">Adventure</option>
+                            <option value="dam">Dams and scenery</option>
+                            <option value="culture">Culture</option>
+                        </select>
+                    </div>
+                </div>
+                <p id="resultMessage" class="text-muted small mt-3 mb-0" aria-live="polite">
+                    Showing all destinations.
+                </p>
+            </div>
+        </section>
+
+        <!-- Destination cards -->
+        <section class="container mb-5" id="all-destinations">
+            <h2 class="section-heading text-center mb-2">Popular Destinations</h2>
+            <p class="text-center text-muted mb-4">Choose a place and start planning your visit.</p>
+
+            <div class="row g-4" id="destinationContainer">
+                <div class="col-sm-6 col-lg-4 destination-item" data-name="Afriski Mountain Resort" data-category="adventure mountain">
+                    <article class="card destination-card">
+                        <img src="Afriski2.jpg" class="card-img-top" alt="Afriski Mountain Resort in the Maluti Mountains" loading="lazy">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge text-bg-primary align-self-start mb-2">Adventure</span>
+                            <h3 class="card-title h5">Afriski Mountain Resort</h3>
+                            <p class="card-text">Enjoy winter skiing, snowboarding and mountain activities in the Maluti Mountains.</p>
+                            <a href="booking.html" class="btn btn-warning mt-auto">Plan Your Visit</a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-sm-6 col-lg-4 destination-item" data-name="Maletsunyane Falls Semonkong" data-category="waterfall adventure">
+                    <article class="card destination-card">
+                        <img src="maletsunyane.jpg" class="card-img-top" alt="Maletsunyane Falls near Semonkong" loading="lazy">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge text-bg-success align-self-start mb-2">Waterfall</span>
+                            <h3 class="card-title h5">Maletsunyane Falls</h3>
+                            <p class="card-text">Visit the impressive waterfall near Semonkong and discover the surrounding highland scenery.</p>
+                            <a href="booking.html" class="btn btn-warning mt-auto">Plan Your Visit</a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-sm-6 col-lg-4 destination-item" data-name="Thabana Ntlenyana highest peak" data-category="mountain adventure">
+                    <article class="card destination-card">
+                        <img src="thabana.jpg" class="card-img-top" alt="Mountain scenery around Thabana Ntlenyana" loading="lazy">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge text-bg-warning align-self-start mb-2">Mountain</span>
+                            <h3 class="card-title h5">Thabana Ntlenyana</h3>
+                            <p class="card-text">Explore the high mountain landscape around Southern Africa's highest peak.</p>
+                            <a href="booking.html" class="btn btn-warning mt-auto">Plan Your Visit</a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-sm-6 col-lg-4 destination-item" data-name="Katse Dam water mountains scenery" data-category="dam">
+                    <article class="card destination-card">
+                        <img src="katsedam.jpg" class="card-img-top" alt="Katse Dam surrounded by Lesotho mountains" loading="lazy">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge text-bg-info align-self-start mb-2">Scenery</span>
+                            <h3 class="card-title h5">Katse Dam</h3>
+                            <p class="card-text">Take in the striking reservoir, mountain views and engineering of the Lesotho Highlands Water Project.</p>
+                            <a href="booking.html" class="btn btn-warning mt-auto">Plan Your Visit</a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-sm-6 col-lg-4 destination-item" data-name="Thaba Bosiu cultural heritage history" data-category="culture mountain">
+                    <article class="card destination-card">
+                        <img src="thababosiu.jpg" class="card-img-top" alt="Thaba Bosiu cultural heritage site" loading="lazy">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge text-bg-secondary align-self-start mb-2">Culture</span>
+                            <h3 class="card-title h5">Thaba Bosiu</h3>
+                            <p class="card-text">Learn about Basotho history and the legacy of King Moshoeshoe I at this important heritage site.</p>
+                            <a href="booking.html" class="btn btn-warning mt-auto">Plan Your Visit</a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="col-sm-6 col-lg-4 destination-item" data-name="Pony trekking highlands adventure" data-category="adventure culture">
+                    <article class="card destination-card">
+                        <img src="pony.jpg" class="card-img-top" alt="Basotho pony trekking in the highlands" loading="lazy">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge text-bg-primary align-self-start mb-2">Adventure</span>
+                            <h3 class="card-title h5">Highlands Pony Trekking</h3>
+                            <p class="card-text">Experience traditional Basotho pony trekking and discover remote mountain villages and trails.</p>
+                            <a href="booking.html" class="btn btn-warning mt-auto">Plan Your Visit</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <div id="noResults" class="alert alert-warning text-center mt-4 d-none" role="status">
+                No destinations match your search. Try another name or category.
+            </div>
+        </section>
+
+        <!-- Helpful information -->
+        <section class="container mb-5">
+            <div class="info-panel bg-white rounded p-4 p-md-5 shadow-sm text-center">
+                <h2 class="section-heading">Ready for your Lesotho adventure?</h2>
+                <p class="mb-4">Explore the gallery for more views or use the booking page to plan your trip.</p>
+                <a href="gallery.html" class="btn btn-outline-primary me-2 mb-2">View Gallery</a>
+                <a href="booking.html" class="btn btn-warning mb-2">Book Your Trip</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <p class="mb-2">&copy; <span id="currentYear">2026</span> Explore Lesotho | DIWD2110 Tourism Website</p>
+            <a href="website.html" class="text-warning">Home</a>
+            <span class="mx-2">|</span>
+            <a href="contact.html" class="text-warning">Contact</a>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Dark mode: remember the user's preference
+        const darkModeBtn = document.getElementById("darkModeBtn");
+
+        if (localStorage.getItem("destinationDarkMode") === "true") {
+            document.body.classList.add("dark-mode");
+        }
+
+        darkModeBtn.addEventListener("click", function () {
+            document.body.classList.toggle("dark-mode");
+            localStorage.setItem(
+                "destinationDarkMode",
+                document.body.classList.contains("dark-mode")
+            );
+        });
+
+        // Search and filter destination cards
+        const destinationSearch = document.getElementById("destinationSearch");
+        const categoryFilter = document.getElementById("categoryFilter");
+        const destinationItems = document.querySelectorAll(".destination-item");
+        const resultMessage = document.getElementById("resultMessage");
+        const noResults = document.getElementById("noResults");
+
+        function filterDestinations() {
+            const searchTerm = destinationSearch.value.trim().toLowerCase();
+            const selectedCategory = categoryFilter.value;
+            let visibleCount = 0;
+
+            destinationItems.forEach(function (item) {
+                const name = item.dataset.name.toLowerCase();
+                const categories = item.dataset.category.toLowerCase();
+                const matchesSearch = name.includes(searchTerm) ||
+                    item.textContent.toLowerCase().includes(searchTerm);
+                const matchesCategory = selectedCategory === "all" ||
+                    categories.split(" ").includes(selectedCategory);
+                const showItem = matchesSearch && matchesCategory;
+
+                item.classList.toggle("d-none", !showItem);
+
+                if (showItem) {
+                    visibleCount++;
+                }
+            });
+
+            resultMessage.textContent = "Showing " + visibleCount +
+                (visibleCount === 1 ? " destination." : " destinations.");
+            noResults.classList.toggle("d-none", visibleCount !== 0);
+        }
+
+        destinationSearch.addEventListener("input", filterDestinations);
+        categoryFilter.addEventListener("change", filterDestinations);
+
+        // Automatically update the footer year
+        document.getElementById("currentYear").textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Book a Trip | Lesotho Tourism</title>
+
+    <!--bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <style>
+        :root{
+            --primary-blue:#0d2c54;
+            --accent-yellow:#ffb703;
+        }
+
+        body{
+            font-family:'Segoe UI',sans-serif;
+            transition:all 0.3s ease;
+        }
+
+        body, html{
+            overflow-x:hidden;
+        }
+
+        .page-banner{
+            background:linear-gradient(rgba(13,44,84,0.85), rgba(13,44,84,0.85)), url('nature4.jpg') center/cover;
+            color:#fff;
+            padding:60px 0;
+        }
+
+        .btn-warning{
+            background-color:var(--accent-yellow);
+            border:none;
+            color:#000;
+            font-weight:600;
+        }
+
+        .btn-warning:hover{
+            background-color:#e6a102;
+            color:#000;
+        }
+
+        .booking-card{
+            border:none;
+            box-shadow:0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .summary-box{
+            position:sticky;
+            top:80px;
+        }
+
+        #totalCost{
+            font-weight:bold;
+            font-size:1.8rem;
+            color:var(--primary-blue);
+        }
+
+        .dark-mode{
+            background-color:#121212 !important;
+            color:white !important;
+        }
+
+        .dark-mode .card,
+        .dark-mode .form-control,
+        .dark-mode .form-select,
+        .dark-mode .modal-content{
+            background-color:#1e1e1e;
+            color:white;
+            border-color:#444;
+        }
+
+        .dark-mode .bg-light{
+            background-color:#1e1e1e !important;
+        }
+
+        .dark-mode #totalCost{
+            color:var(--accent-yellow);
+        }
+
+        .dark-mode .text-muted{
+            color:#aaa !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!--header-->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color:#1a2332 !important;">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="website.html"><i class="bi bi-geo-alt-fill"></i> LESOTHO TOURISM</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="website.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="destinations.html">Destinations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="booking.html">Booking</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                        <li class="nav-item">
+                            <button id="darkModeBtn" class="btn btn-sm btn-warning ms-2 mt-1" aria-label="Toggle dark mode"><i class="bi bi-moon-fill"></i></button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!--Main-->
+    <main>
+
+        <section class="page-banner text-center">
+            <div class="container">
+                <h1 class="fw-bold">Book Your Trip</h1>
+                <p class="lead mb-0">Choose a destination, pick your dates and see your estimated cost as you go.</p>
+            </div>
+        </section>
+
+        <section class="container my-5">
+            <div class="row g-4">
+
+                <!--Booking form-->
+                <div class="col-lg-8">
+                    <div class="card booking-card">
+                        <div class="card-body p-4">
+
+                            <form id="bookingForm" novalidate>
+
+                                <h4 class="fw-bold mb-3"><i class="bi bi-person-fill"></i> Your details</h4>
+
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
+                                        <label for="fullName" class="form-label">Full name</label>
+                                        <input type="text" id="fullName" class="form-control" required minlength="3">
+                                        <div class="invalid-feedback">Enter your full name (at least 3 characters).</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" id="email" class="form-control" required>
+                                        <div class="invalid-feedback">Enter a valid email address.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="phone" class="form-label">Phone number</label>
+                                        <input type="tel" id="phone" class="form-control" required pattern="[0-9+\s\-]{8,15}" placeholder="+266 5000 0000">
+                                        <div class="invalid-feedback">Enter a phone number with 8 to 15 digits.</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="country" class="form-label">Country of residence</label>
+                                        <input type="text" id="country" class="form-control" required>
+                                        <div class="invalid-feedback">Enter your country.</div>
+                                    </div>
+                                </div>
+
+                                <h4 class="fw-bold mb-3"><i class="bi bi-map-fill"></i> Trip details</h4>
+
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-12">
+                                        <label for="destination" class="form-label">Destination</label>
+                                        <select id="destination" class="form-select" required>
+                                            <option value="" data-price="0">Select a destination</option>
+                                            <option value="afriski" data-price="1200">Afriski Mountain Resort - M1,200 per person per day</option>
+                                            <option value="maletsunyane" data-price="950">Maletsunyane Falls, Semonkong - M950 per person per day</option>
+                                            <option value="thabana" data-price="850">Thabana Ntlenyana - M850 per person per day</option>
+                                            <option value="katse" data-price="800">Katse Dam - M800 per person per day</option>
+                                            <option value="sani" data-price="900">Sani Pass and Sani Mountain Lodge - M900 per person per day</option>
+                                        </select>
+                                        <div class="invalid-feedback">Choose a destination.</div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="startDate" class="form-label">Start date</label>
+                                        <input type="date" id="startDate" class="form-control" required>
+                                        <div class="invalid-feedback">Choose a start date that is today or later.</div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="days" class="form-label">Number of days</label>
+                                        <input type="number" id="days" class="form-control" value="2" min="1" max="30" required>
+                                        <div class="invalid-feedback">Enter between 1 and 30 days.</div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="people" class="form-label">Number of people</label>
+                                        <input type="number" id="people" class="form-control" value="1" min="1" max="20" required>
+                                        <div class="invalid-feedback">Enter between 1 and 20 people.</div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <label for="accommodation" class="form-label">Accommodation</label>
+                                        <select id="accommodation" class="form-select" required>
+                                            <option value="0">Camping - included</option>
+                                            <option value="300" selected>Guest house - M300 per person per night</option>
+                                            <option value="700">Lodge - M700 per person per night</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <h4 class="fw-bold mb-3"><i class="bi bi-stars"></i> Add-ons</h4>
+
+                                <div class="mb-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input addon" type="checkbox" id="addonPony" value="250" data-per="person">
+                                        <label class="form-check-label" for="addonPony">Pony trekking - M250 per person</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input addon" type="checkbox" id="addonGuide" value="400" data-per="day">
+                                        <label class="form-check-label" for="addonGuide">Local guide - M400 per day for the group</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input addon" type="checkbox" id="addonTransport" value="600" data-per="trip">
+                                        <label class="form-check-label" for="addonTransport">Transport from Maseru - M600 per trip</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input addon" type="checkbox" id="addonMeals" value="180" data-per="personday">
+                                        <label class="form-check-label" for="addonMeals">Meals - M180 per person per day</label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="notes" class="form-label">Special requests (optional)</label>
+                                    <textarea id="notes" class="form-control" rows="3" maxlength="300" placeholder="Dietary needs, accessibility, group details..."></textarea>
+                                </div>
+
+                                <div class="form-check mb-4">
+                                    <input class="form-check-input" type="checkbox" id="terms" required>
+                                    <label class="form-check-label" for="terms">I confirm the details above are correct.</label>
+                                    <div class="invalid-feedback">You must confirm before booking.</div>
+                                </div>
+
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-warning btn-lg">Confirm booking</button>
+                                    <button type="reset" id="resetBtn" class="btn btn-outline-secondary btn-lg">Clear form</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Cost summary-->
+                <aside class="col-lg-4">
+                    <div class="summary-box bg-light p-4 rounded">
+                        <h4><i class="bi bi-calculator"></i> Cost summary</h4>
+                        <p class="small text-muted">Updates as you change the form.</p>
+
+                        <table class="table table-sm mb-3">
+                            <tbody>
+                                <tr><td>Destination</td><td class="text-end" id="sumDestination">Not selected</td></tr>
+                                <tr><td>Trip cost</td><td class="text-end" id="sumTrip">M0.00</td></tr>
+                                <tr><td>Accommodation</td><td class="text-end" id="sumAccom">M0.00</td></tr>
+                                <tr><td>Add-ons</td><td class="text-end" id="sumAddons">M0.00</td></tr>
+                            </tbody>
+                        </table>
+
+                        <p class="mb-0">Estimated total</p>
+                        <p id="totalCost">M0.00</p>
+                    </div>
+                </aside>
+
+            </div>
+        </section>
+
+        <!--Previous bookings-->
+        <section class="bg-light py-5">
+            <div class="container">
+                <h2 class="fw-bold mb-3">Your recent bookings</h2>
+                <div id="bookingList"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!--Confirmation modal-->
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmTitle"><i class="bi bi-check-circle-fill text-success"></i> Booking confirmed</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="confirmBody"></div>
+                <div class="modal-footer">
+                    <a href="website.html" class="btn btn-outline-primary">Back to home</a>
+                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--footer-->
+    <footer class="bg-dark text-white text-center py-4 mt-0">
+        <div class="container">
+            <p>&copy; 2026 Lesotho Tourism | DIWD2110 Assignment 2 | Made by Student</p>
+            <p>
+                <a href="website.html" class="text-warning text-decoration-none">Home</a> |
+                <a href="contact.html" class="text-warning text-decoration-none">Contact</a>
+            </p>
+        </div>
+    </footer>
+
+    <!--bootstrap JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        // ---------- Dark / light mode ----------
+        const darkBtn = document.getElementById('darkModeBtn');
+        darkBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        });
+
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+
+        // ---------- Elements ----------
+        const form = document.getElementById('bookingForm');
+        const destination = document.getElementById('destination');
+        const startDate = document.getElementById('startDate');
+        const daysInput = document.getElementById('days');
+        const peopleInput = document.getElementById('people');
+        const accommodation = document.getElementById('accommodation');
+        const addons = document.querySelectorAll('.addon');
+
+        // Earliest selectable date is today
+        const today = new Date().toISOString().split('T')[0];
+        startDate.min = today;
+
+        // Pre-select destination from link, e.g. booking.html?destination=afriski
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('destination')) {
+            destination.value = params.get('destination');
+        }
+
+        // Pre-fill name from the home page welcome prompt
+        const savedName = localStorage.getItem('userName');
+        if (savedName && savedName !== 'Traveller') {
+            document.getElementById('fullName').value = savedName;
+        }
+
+        // ---------- Cost calculation ----------
+        function formatM(amount) {
+            return 'M' + amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function calculate() {
+            const people = Math.max(parseInt(peopleInput.value) || 0, 0);
+            const days = Math.max(parseInt(daysInput.value) || 0, 0);
+            const rate = parseFloat(destination.selectedOptions[0].dataset.price) || 0;
+            const nights = Math.max(days - 1, 0);
+
+            const trip = people * days * rate;
+            const accom = people * nights * parseFloat(accommodation.value);
+
+            let addonTotal = 0;
+            addons.forEach(a => {
+                if (!a.checked) return;
+                const price = parseFloat(a.value);
+                switch (a.dataset.per) {
+                    case 'person':    addonTotal += price * people; break;
+                    case 'day':       addonTotal += price * days; break;
+                    case 'trip':      addonTotal += price; break;
+                    case 'personday': addonTotal += price * people * days; break;
+                }
+            });
+
+            const total = trip + accom + addonTotal;
+
+            document.getElementById('sumDestination').textContent =
+                destination.value ? destination.selectedOptions[0].text.split(' - ')[0] : 'Not selected';
+            document.getElementById('sumTrip').textContent = formatM(trip);
+            document.getElementById('sumAccom').textContent = formatM(accom);
+            document.getElementById('sumAddons').textContent = formatM(addonTotal);
+            document.getElementById('totalCost').textContent = formatM(total);
+
+            return { trip, accom, addonTotal, total, people, days };
+        }
+
+        [destination, startDate, daysInput, peopleInput, accommodation].forEach(el => {
+            el.addEventListener('input', calculate);
+            el.addEventListener('change', calculate);
+        });
+        addons.forEach(a => a.addEventListener('change', calculate));
+
+        // ---------- Validation ----------
+        function validate() {
+            let valid = true;
+            form.querySelectorAll('input[required], select[required]').forEach(field => {
+                let ok = field.checkValidity();
+
+                if (field === destination && !destination.value) ok = false;
+                if (field === startDate && startDate.value && startDate.value < today) ok = false;
+
+                field.classList.toggle('is-invalid', !ok);
+                field.classList.toggle('is-valid', ok && field.type !== 'checkbox');
+                if (!ok) valid = false;
+            });
+            return valid;
+        }
+
+        // ---------- Saved bookings (localStorage) ----------
+        function getBookings() {
+            try {
+                return JSON.parse(localStorage.getItem('bookings')) || [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function renderBookings() {
+            const list = document.getElementById('bookingList');
+            const bookings = getBookings();
+
+            if (bookings.length === 0) {
+                list.innerHTML = '<p class="text-muted">No bookings yet. Fill in the form above to make your first one.</p>';
+                return;
+            }
+
+            list.innerHTML = '';
+            bookings.slice().reverse().forEach(b => {
+                const col = document.createElement('div');
+                col.className = 'card booking-card mb-3';
+                col.innerHTML =
+                    '<div class="card-body d-flex justify-content-between align-items-center flex-wrap gap-2">' +
+                        '<div>' +
+                            '<h5 class="card-title mb-1"></h5>' +
+                            '<p class="card-text small text-muted mb-0"></p>' +
+                        '</div>' +
+                        '<div class="text-end">' +
+                            '<strong class="d-block"></strong>' +
+                            '<button class="btn btn-sm btn-outline-danger mt-1">Cancel</button>' +
+                        '</div>' +
+                    '</div>';
+                // textContent keeps user input from being treated as HTML
+                col.querySelector('.card-title').textContent = b.destinationName;
+                col.querySelector('.card-text').textContent =
+                    b.name + ' | ' + b.startDate + ' | ' + b.days + ' day(s) | ' + b.people + ' person(s)';
+                col.querySelector('strong').textContent = formatM(b.total);
+                col.querySelector('button').addEventListener('click', () => {
+                    const remaining = getBookings().filter(x => x.id !== b.id);
+                    localStorage.setItem('bookings', JSON.stringify(remaining));
+                    renderBookings();
+                });
+                list.appendChild(col);
+            });
+        }
+
+        // ---------- Submit ----------
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (!validate()) {
+                const firstInvalid = form.querySelector('.is-invalid');
+                if (firstInvalid) firstInvalid.focus();
+                return;
+            }
+
+            const cost = calculate();
+            const booking = {
+                id: Date.now(),
+                name: document.getElementById('fullName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                destinationName: destination.selectedOptions[0].text.split(' - ')[0],
+                startDate: startDate.value,
+                days: cost.days,
+                people: cost.people,
+                total: cost.total
+            };
+
+            const bookings = getBookings();
+            bookings.push(booking);
+            localStorage.setItem('bookings', JSON.stringify(bookings));
+
+            const body = document.getElementById('confirmBody');
+            body.innerHTML = '';
+            const intro = document.createElement('p');
+            intro.textContent = 'Thank you, ' + booking.name + '. Your booking for ' + booking.destinationName +
+                ' starts on ' + booking.startDate + ' for ' + booking.days + ' day(s) and ' + booking.people + ' person(s).';
+            const total = document.createElement('p');
+            total.className = 'mb-0';
+            total.textContent = 'Estimated total: ' + formatM(booking.total);
+            body.appendChild(intro);
+            body.appendChild(total);
+
+            new bootstrap.Modal(document.getElementById('confirmModal')).show();
+
+            form.reset();
+            form.querySelectorAll('.is-valid, .is-invalid').forEach(f => f.classList.remove('is-valid', 'is-invalid'));
+            calculate();
+            renderBookings();
+        });
+
+        // Clear validation styling and totals when the form is reset
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            setTimeout(() => {
+                form.querySelectorAll('.is-valid, .is-invalid').forEach(f => f.classList.remove('is-valid', 'is-invalid'));
+                calculate();
+            }, 0);
+        });
+
+        // ---------- Init ----------
+        calculate();
+        renderBookings();
+        console.log("Booking page loaded successfully");
+
+    </script>
+
+</body>
+</html>
